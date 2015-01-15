@@ -10,12 +10,11 @@
    */
   $.fn.bookmarkit = function(options) {
     var opts = $.extend(true, {}, $.fn.bookmarkit.defaults, options );
-
     var $link_icon;
-    if (opts.useFontAwesome) {
+    if (opts.useFontAwesome) { // Use Font Awesome title
       $link_icon = $('<i></i>').addClass('fa')
                                .addClass(opts.fontAwesomeIcon);
-    } else {
+    } else { // Use custom element
       $link_icon = $(opts.anchorIcon);
     }
     var $anchor = $('<a></a>').attr(opts.anchorAttrs)
@@ -23,11 +22,16 @@
                               .append($link_icon);
     this.each(function() {
       var $el = $(this);
+      // Generate the ID
       var id = $.fn.bookmarkit.getID.call(this)
-      // var id = $el.html().split(' ').join('_').toLowerCase();
       $el.attr('id', id);
       var $my_anchor = $anchor.clone().attr('href', '#' + id);
-      $el.append($my_anchor);
+      // Add anchor to element
+      if (opts.appendAnchor) {
+        $el.append($my_anchor);
+      } else {
+        $el.prepend($my_anchor);
+      }
     });
     return this;
   }
@@ -40,10 +44,10 @@
     fontAwesomeIcon: 'fa-link',
     // Link icon to be used if 'useFontAwesome' is set to false.
     anchorIcon: null,
+    // Set to true to append the anchor. Set to false to prepend the anchor
+    appendAnchor: true,
     // Attributes to be applied to the link element.
-    anchorAttrs: {
-      class: 'post-deep-link'
-    },
+    anchorAttrs: {},
     // CSS styling to be applied to the link element.
     anchorCSS: {}
   };
