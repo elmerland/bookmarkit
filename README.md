@@ -3,6 +3,14 @@ jQuery plugin for adding deep links to elements in the DOM.
 
 #How it works
 
+First, be sure to import the dependencies
+
+``` html
+<!-- Font Awesome is optional. Please read the options section -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="bookmarkit/jquery.bookmarkit.js">
+```
+
 Here is a simple usage scenario. Suppose you have some content and want to deep link all headings inside of that content.
 
 ``` javascript
